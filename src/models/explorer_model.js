@@ -9,7 +9,7 @@ const explorerSchema = new Schema({
     type: Schema.Types.String,
     required: true,
   },
-  year: {
+  ExpeditionParticipated: {
     type: Schema.Types.Number,
     required: true,
   },
