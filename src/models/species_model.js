@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const explorerSchema = new Schema({
+const speciesSchema = new Schema({
   name: {
     type: Schema.Types.String,
     required: true,
@@ -19,6 +19,6 @@ const explorerSchema = new Schema({
   },
 });
 
-const Explorer = model("Explorer", explorerSchema);
+const Species = model("Species", speciesSchema);
 
-export default Explorer;
+export default Species;
