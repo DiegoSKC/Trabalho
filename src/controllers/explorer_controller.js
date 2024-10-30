@@ -1,49 +1,47 @@
-import Explorer from "../models/explorer_model.js";
+import explorer from "../models/explorer_model.js";
 
-export const store = async (req, res) => {
+export const store = async (req, resp) => {
   try {
-    await Explorer.create(req.body);
-    res.status(201).json();
+    const content = await explorer.create(req.body);
+    resp.json();
   } catch (error) {
-    res.status(400).json(error.message);
+    resp.json(error);
   }
 };
-
-export const index = async (req, res) => {
+export const index = async (req, resp) => {
   try {
-    let content = await Explorer.find().exec();
-    res.json(content);
+    const content = await explorer.find().exec();
+    resp.json(content);
   } catch (error) {
-    res.status(400).json(error.message);
+    resp.json(error);
   }
 };
-
-export const show = async (req, res) => {
+export const show = async (req, resp) => {
   try {
-    let content = await Explorer.findById(req.params.id).exec();
-    res.json(content);
+    const content = await explorer
+      .findById(req.params.id)
+      .populate("expeditionParticipated")
+      .exec();
+    resp.json(content);
   } catch (error) {
-    res.status(400).json(error.message);
+    resp.json(error);
   }
 };
-
 export const update = async (req, res) => {
   try {
-    let content = await Explorer.findByIdAndUpdate(
-      req.params.id,
-      req.body
-    ).exec();
+    const content = await explorer
+      .findByIdAndUpdate(req.params.id, req.body)
+      .exec();
     res.json(content);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(400).send(error.message);
   }
 };
-
-export const destroy = async (req, res) => {
+export const destroy = async (req, resp) => {
   try {
-    let content = await Explorer.findByIdAndDelete(req.params.id).exec();
-    res.json(content);
+    explorer.findByIdAndDelete(req.params.id).exec();
+    resp.json();
   } catch (error) {
-    res.status(400).json(error.message);
+    resp.json(error);
   }
 };
